@@ -15,12 +15,23 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class SensorResource {
 
-    // GET /api/v1/sensors - get all sensors
+    // GET /api/v1/sensors - get all sensors or filter by type
     @GET
-    public Response getSensors() {
-        List<Sensor> result = new ArrayList<>(DataStore.sensors.values());
-        return Response.ok(result).build();
+    public Response getSensors(@QueryParam("type") String type) {
+    List<Sensor> result = new ArrayList<>(DataStore.sensors.values());
+
+    if (type != null && !type.isEmpty()) {
+        List<Sensor> filtered = new ArrayList<>();
+        for (Sensor s : result) {
+            if (s.getType().equalsIgnoreCase(type)) {
+                filtered.add(s);
+            }
+        }
+        return Response.ok(filtered).build();
     }
+
+    return Response.ok(result).build();
+}
 
     // POST /api/v1/sensors - register a new sensor
     @POST
