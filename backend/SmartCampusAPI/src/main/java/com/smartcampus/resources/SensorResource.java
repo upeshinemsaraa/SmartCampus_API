@@ -76,4 +76,13 @@ public class SensorResource {
         }
         return Response.ok(sensor).build();
     }
+    
+    // Sub-resource locator - delegates to SensorReadingResource
+    // Handles: /api/v1/sensors/{sensorId}/readings
+    @Path("/{sensorId}/readings")
+    public SensorReadingResource getReadingsResource(
+            @PathParam("sensorId") String sensorId) {
+        return new SensorReadingResource(sensorId);
+    }
+    
 }
