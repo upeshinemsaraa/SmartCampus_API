@@ -40,31 +40,56 @@ git clone https://github.com/upeshinemsaraa/SmartCampus_API
 | GET | /api/v1/sensors/{id}/readings | Get all readings for a sensor |
 | POST | /api/v1/sensors/{id}/readings | Add a new reading |
 
+
 ## Sample curl Commands
 **1. Get API Discovery:**
+```
 curl http://localhost:8080/SmartCampusAPI/api/v1/
+```
+
 **2. Get all rooms:**
+```
 curl http://localhost:8080/SmartCampusAPI/api/v1/rooms
+```
+
 **3. Create a new room:**
+```
 curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/rooms \
   -H "Content-Type: application/json" \
   -d '{"id":"CS-101","name":"Computer Science Lab","capacity":40}'
+```
+
 **4. Try to delete a room with sensors (shows 409 error):**
+```
 curl -X DELETE http://localhost:8080/SmartCampusAPI/api/v1/rooms/LIB-301
+```
+
 **5. Register a sensor with invalid roomId (shows 422 error):**
+```
 curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/sensors \
   -H "Content-Type: application/json" \
   -d '{"id":"CO2-001","type":"CO2","status":"ACTIVE","currentValue":400,"roomId":"FAKE-ROOM"}'
+```
+
 **6. Register a valid sensor:**
+```
 curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/sensors \
   -H "Content-Type: application/json" \
   -d '{"id":"CO2-001","type":"CO2","status":"ACTIVE","currentValue":400,"roomId":"LAB-101"}'
+```
+
 **7. Filter sensors by type:**
+```
 curl http://localhost:8080/SmartCampusAPI/api/v1/sensors?type=CO2
+```
+
 **8. Add a sensor reading:**
+```
 curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/sensors/TEMP-001/readings \
   -H "Content-Type: application/json" \
   -d '{"value":25.5}'
+```
+
   
 ## Report: Answers to Coursework Questions
 ### Part 1.1 - JAX-RS Resource Lifecycle
